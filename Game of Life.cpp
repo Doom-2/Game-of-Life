@@ -140,12 +140,17 @@ bool checkUniverseStates(char** arr_1, char** arr_2, int rows, int cols) {
     return is_equal;
 }
 
+// Checks if the string is not empty and is an integer
+bool isNumber(const string& s) {
+    return !s.empty() && (s.find_first_not_of("0123456789") == s.npos);
+}
+
 
 int main()
 {
     ifstream file;
-    string fname = "initial_data.txt", line;
-    int rows, cols, alive_cell_x, alive_cell_y, gen = 1, alive_num = 0;
+    string fname = "initial_data.txt", line, alive_cell_x, alive_cell_y;
+    int rows, cols, gen = 1, alive_num = 0;
     bool gameOver = false, is_world_stagnated = false;
 
     file.open(fname);
@@ -171,9 +176,11 @@ int main()
         }
     }
 
+    // Fill the universe with living cells
     while (getline(file, line)) {
         istringstream(line) >> alive_cell_x >> alive_cell_y;
-        universe[alive_cell_x][alive_cell_y] = '*';
+        if (isNumber(alive_cell_x) && isNumber(alive_cell_y))
+            universe[stoi(alive_cell_x)][stoi(alive_cell_y)] = '*';
     }
     file.close();
 
