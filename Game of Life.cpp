@@ -25,7 +25,7 @@ void printUniverse(char** arr, int rows, int cols, int gen_num, int& aliveNumOut
 
 // Counts all cells adjacent to the current one, containing 'match_ch' character.
 // Boundary conditions are taken into account.
-int countAliveNeighbors(char** arr, int row, int col, int last_row, int last_col, char& match_ch) {
+int countAliveNeighbors(char** arr, int row, int col, int last_row, int last_col, const char match_ch) {
     int count = 0;
     // top left corner
     if (row == 0 && col == 0) {
@@ -101,7 +101,7 @@ int countAliveNeighbors(char** arr, int row, int col, int last_row, int last_col
 void makeNewUniverseState(char** universe, char** universe_tmp, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            char match = '*';
+            const char match = '*';
             int alive_neighbors_num = countAliveNeighbors(universe, i, j, rows - 1, cols - 1, match);
             switch (universe[i][j])
             {
